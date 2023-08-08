@@ -1,0 +1,21 @@
+resources:
+  - name: git_repo_pylint
+    type: GitRepo
+    configuration:
+      gitProvider: mkGithub
+      path: Manokarthi2412/python-lint
+      branches:
+        include: main
+pipelines:
+  - name: python_lint
+    steps:
+      - name: py_lint
+        type: Bash
+        configuration:
+          inputResources:
+            - name: git_repo_pylint
+        execution:
+          onExecute:
+            - python3 -m pip install --upgrade pip
+            - pip install pylint
+            - pylint $res_git_repo_resourcePath/src
