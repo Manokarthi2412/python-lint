@@ -1,22 +1,27 @@
 resources:
-  - name: git_repo_pylint
+  - name: git_repo_python
     type: GitRepo
     configuration:
       gitProvider: mkGithub
-      path: Manokarthi2412/python-lint
+      path:  Manokarthi2412/python_hello_world
       branches:
-        include: main
+        include: main  # Replace with the branch you want to use
+
 pipelines:
-  - name: python_lint
+  - name: run_script
     steps:
-      - name: py_lint
+      - name: run_python_script
         type: Bash
         configuration:
           inputResources:
-            - name: git_repo_pylint
+            - name: git_repo_python
         execution:
           onExecute:
-            - python3 -m pip install --upgrade pip
-            - pip install pylint
-            - pylint $res_git_repo_resourcePath/src
-
+            # - pushd $res_git_repo_python_resourcePath
+            # - python3 -m pip install --upgrade pip
+            # - pip install -r requirements.txt
+            # - python3 -m pip install chromadb
+            # - ls
+            # - python3 validation.py  # Replace with the actual path to your Python script
+            - echo "Hello world"
+            - curl -X GET "10.90.127.215:5777/validate"
