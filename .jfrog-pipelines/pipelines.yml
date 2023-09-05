@@ -1,48 +1,22 @@
-# resources:
-#   - name: git_repo_pylint
-#     type: GitRepo
-#     configuration:
-#       gitProvider: mkGithub
-#       path: Manokarthi2412/python-lint
-#       branches:
-#         include: main
-# pipelines:
-#   - name: python_lint
-#     steps:
-#       - name: py_lint
-#         type: Bash
-#         configuration:
-#           inputResources:
-#             - name: git_repo_pylint
-#         execution:
-#           onExecute:
-#             - python3 -m pip install --upgrade pip
-#             - pip install pylint
-#             - pylint $res_git_repo_resourcePath/src
 resources:
-  - name: git_repo_python
+  - name: git_repo_pylint
     type: GitRepo
     configuration:
       gitProvider: mkGithub
-      path:  Manokarthi2412/python-lint
+      path: Manokarthi2412/python-lint
       branches:
-        include: main  # Replace with the branch you want to use
-
+        include: main
 pipelines:
-  - name: run_script
+  - name: python_lint
     steps:
-      - name: run_python_script
+      - name: py_lint
         type: Bash
         configuration:
           inputResources:
-            - name: git_repo_python
+            - name: git_repo_pylint
         execution:
           onExecute:
-            # - pushd $res_git_repo_python_resourcePath
-            # - python3 -m pip install --upgrade pip
-            # - pip install -r requirements.txt
-            # - python3 -m pip install chromadb
-            # - ls
-            # - python3 validation.py  # Replace with the actual path to your Python script
-            - echo "Hello world"
-            - curl -X GET "10.90.127.215:5777/query?q=write%20a%20yaml%20to%20build%20go%20and%20publish"
+            - python3 -m pip install --upgrade pip
+            - pip install pylint
+            - pylint $res_git_repo_resourcePath/src
+
