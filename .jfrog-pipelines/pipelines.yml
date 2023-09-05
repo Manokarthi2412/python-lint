@@ -1,8 +1,8 @@
 resources:
-  - name: git_repo_python
+  - name: git_repo
     type: GitRepo
     configuration:
-      gitProvider: mkGithub
+      gitProvider: mkgithub
       path:  Manokarthi2412/python_hello_world
       branches:
         include: main  # Replace with the branch you want to use
@@ -14,7 +14,7 @@ pipelines:
         type: Bash
         configuration:
           inputResources:
-            - name: git_repo_python
+            - name: git_repo
         execution:
           onExecute:
             # - pushd $res_git_repo_python_resourcePath
