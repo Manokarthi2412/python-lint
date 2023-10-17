@@ -1,27 +1,28 @@
 resources:
-  - name: git_repo
+  - name: app_test_results
+    type: PropertyBag
+    configuration:
+      passing: 0
+      failing: 0
+  - name: app_docker
     type: GitRepo
     configuration:
-      gitProvider: mkgithub
-      path:  Manokarthi2412/python-lint
+      gitProvider: mkGithub
+      path: myuser/repo-name
       branches:
-        include: main  # Replace with the branch you want to use
+        include: master
 
 pipelines:
-  - name: run_script
-    steps:
-      - name: run_python_script
-        type: Bash
-        configuration:
-          inputResources:
-            - name: git_repo
-        execution:
-          onExecute:
-            # - pushd $res_git_repo_python_resourcePath
-            # - python3 -m pip install --upgrade pip
-            # - pip install -r requirements.txt
-            # - python3 -m pip install chromadb
-            # - ls
-            # - python3 validation.py  # Replace with the actual path to your Python script
-            - echo "Hello world"
-            - curl -X GET "10.90.127.215:5777/validate"
+    - name: test_app
+      type: Jenkins
+      configuration:
+        jenkinsJobName: basic-api
+        inputResources:
+          - name: app_docker
+        buildParameters:
+          imageName: $res_app_docker_imageName
+          imageTag: $res_app_docker_imageTag
+        integrations:
+          - name: myJenkins
+        outputResources:
+          - name: app_test_results
