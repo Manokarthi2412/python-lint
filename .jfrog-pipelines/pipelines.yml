@@ -2,12 +2,15 @@ resources:
   - name: sample_code
     type: GitRepo
     configuration:
-      path: jfrog/jfrog-pipelines-matrix-example      # Change to your own path
+      path: jfrog/jfrog-pipelines-matrix-example
       branches:
         include: ^master$
-      gitProvider: mkGithub                       # Change to your own GitHub integration name
+      gitProvider: mkGithub
+
 pipelines:
-      - name: setup
+  - name: setup
+    steps:
+      - name: setup_step
         type: PreMatrix
         configuration:
           inputResources:
