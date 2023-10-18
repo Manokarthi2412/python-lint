@@ -1,25 +1,33 @@
-resources:
-  - name: sample_code
-    type: GitRepo
-    configuration:
-      path: jfrog/jfrog-pipelines-matrix-example
-      branches:
-        include: ^master$
-      gitProvider: mkGithub
-
 pipelines:
-  - name: setup
-    steps:
-      - name: setup_step
-        type: PreMatrix
+      - name: test
+        type: Matrix
+        stepMode: Bash
         configuration:
-          inputResources:
-            - name: sample_code
+          inputSteps:
+            - name: setup
+        stepletMultipliers:
+          environmentVariables:
+            - module: mod_1
+            - module: mod_2
+            - module: mod_3
+            - module: mod_4
+          runtimes:
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 12
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 8.17.0                    
         execution:
           onExecute:
-            - echo "Preparing the code base"
-            - pushd "${res_sample_code_resourcePath}/app"
-            - npm install
-            - popd 
-            - mkdir -p app
-            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
+            - pushd ./setup/app
+            - MODULE="$module" npm run test
+            - popd
+          onComplete:
+            - save_tests ./setup/app/reports
