@@ -1,12 +1,11 @@
 pipelines:
-  - name: test
-    configuration:
-      inputSteps:
-        - name: setup
-    execution:
-      onExecute:
-        - pushd ./setup/app
-        - MODULE="$module" npm run test
-        - popd
-      onComplete:
-        - save_tests ./setup/app/reports
+    - name: node_app_build
+      type: Bash
+      configuration:
+        runtime:
+          type: image
+          image:
+            auto:
+              language: node
+              versions:
+                - "14.19.1"
