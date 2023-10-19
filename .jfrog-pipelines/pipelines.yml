@@ -1,11 +1,25 @@
-pipelines:
-    - name: node_app_build
-      type: Bash
-      configuration:
-        runtime:
-          type: image
-          image:
-            auto:
-              language: node
-              versions:
-                - "14.19.1"
+resources:
+  - name: myInputRemoteFile
+    type: RemoteFile
+    configuration:
+      source: s_artifactory
+      fileLocation: example-repo-local/setup/help # optional
+      fileName: something.txt # optional
+      fileDateTime: 19/12/19 # optional
+  - name: myOutputFileSpec
+    type: FileSpec
+    configuration:
+      sourceArtifactory: mkartifactory #your artifactory
+pipelines: 
+  - name: uploadArtifactPipeline
+    steps:
+      - name: uploadArtifactStep
+        type: UploadArtifact
+        configuration:
+          targetPath: my-repository/myDirectory/myFile.txt
+          integrations:
+            - name: mkartifactory
+          inputResources:
+            - name: myInputFileSpec
+          outputResources:
+            - name: myOutputFileSpec
