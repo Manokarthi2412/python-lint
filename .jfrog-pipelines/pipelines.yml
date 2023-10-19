@@ -1,15 +1,8 @@
 resources:
-  - name: myInputFileSpec
-    type: RemoteFile
-    configuration:
-      source: s_artifactory
-      fileLocation: example-repo-local/setup/help # optional
-      fileName: something.txt # optional
-      fileDateTime: 19/12/19 # optional
-  - name: myOutputFileSpec
+  - name: myFileSpec
     type: FileSpec
     configuration:
-      sourceArtifactory: mkartifactory #your artifactory
+      sourceArtifactory: mkartifactory
 pipelines: 
   - name: uploadArtifactPipeline
     steps:
@@ -17,9 +10,11 @@ pipelines:
         type: UploadArtifact
         configuration:
           targetPath: my-repository/myDirectory/myFile.txt
+          autoPublishBuildInfo: true
+          forceXrayScan: true
           integrations:
             - name: mkartifactory
           inputResources:
-            - name: myInputFileSpec
+            - name: myFileSpec
           outputResources:
-            - name: myOutputFileSpec
+            - name: myBuildInfo
