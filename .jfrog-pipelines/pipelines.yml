@@ -1,5 +1,5 @@
 resources:
-  - name: myInputRemoteFile
+  - name: myInputFileSpec
     type: RemoteFile
     configuration:
       source: s_artifactory
