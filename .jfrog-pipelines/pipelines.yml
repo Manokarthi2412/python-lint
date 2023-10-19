@@ -3,6 +3,10 @@ resources:
     type: FileSpec
     configuration:
       sourceArtifactory: mkartifactory
+  - name: myBuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: mkartifactory
 pipelines: 
   - name: uploadArtifactPipeline
     steps:
