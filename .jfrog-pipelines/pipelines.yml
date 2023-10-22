@@ -1,9 +1,10 @@
 resources:
   - name: myApplication
-    type: FileSpec
+    type: BuildInfo
     configuration:
-      sourceArtifactory: mkartifactory #your atifactory integration
-      pattern: "example-repo-local/myApp"
+      sourceArtifactory: mkartifactory
+      buildName: myBuild
+      buildNumber: 1
   - name: myVM
     type: VmCluster
     configuration:
@@ -21,8 +22,10 @@ pipelines:
             - name: myVM
             - name: myApplication
           sshUser: myUser
-          scripts:
+                  scripts:
             - name: deployCommand
               context: targetCluster 
               commands:
                 - "./myApp"
+          onFailure:
+            - 'if [ "$current_command" == "deployCommand" ]; then ./doRollback.sh fi'
