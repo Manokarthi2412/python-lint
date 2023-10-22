@@ -22,7 +22,7 @@ pipelines:
             - name: myVM
             - name: myApplication
           sshUser: myUser
-                  scripts:
+          scripts:
             - name: deployCommand
               context: targetCluster 
               commands:
