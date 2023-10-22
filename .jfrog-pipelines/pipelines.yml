@@ -28,4 +28,4 @@ pipelines:
               commands:
                 - "./myApp"
           onFailure:
-            - 'if [ "$current_command" == "deployCommand" ]; then ./doRollback.sh fi'
+            - "if [ '$current_command' == 'deployCommand' ]; then ./doRollback.sh fi"
