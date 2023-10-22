@@ -2,12 +2,12 @@ resources:
   - name: myApplication
     type: FileSpec
     configuration:
-      sourceArtifactory: myArtifactory
+      sourceArtifactory: mkartifactory
       pattern: "example-repo-local/myApp"
   - name: myVM
     type: VmCluster
     configuration:
-      sshKey: s_VM_DEPLOY_SSHKEY
+      sshKey: pipe_ai_test
       targets:
         - 0.0.0.0
         - 1.1.1.1
