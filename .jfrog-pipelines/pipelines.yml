@@ -30,7 +30,7 @@ pipelines:
               context: targetCluster 
               commands:
                 - "./myApp $LOG_LEVEL"
-                        - name: cleanupCommand
+            - name: cleanupCommand
               context: currentCluster 
               commands:
                 - "./stopApp"
