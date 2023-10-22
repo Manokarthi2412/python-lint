@@ -1,11 +1,27 @@
-pipelines:
-    - name: node_app_build
-      type: Bash
-      configuration:
-        runtime:
-          type: image
-          image:
-            auto:
-              language: node
-              versions:
-                - "14.19.1"
+resources:
+  - name: myApplication
+    type: FileSpec
+    configuration:
+      sourceArtifactory: #your atifactory integration
+      pattern: "example-repo-local/myApp"
+  - name: myVM
+    type: VmCluster
+    configuration:
+      sshKey: mySSHKey
+      targets:
+        - 0.0.0.0
+        - 1.1.1.1
+pipelines: 
+  - name: linuxVMDeployPipeline
+    steps:
+      - name: linuxVMDeploy
+        type: LinuxVMDeploy
+        configuration:
+          inputResources:
+            - name: myVM
+            - name: myApplication
+          scripts:
+            - name: deployCommand
+              context: targetCluster 
+              commands:
+                - "./myApp"
