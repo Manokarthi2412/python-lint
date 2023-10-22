@@ -15,12 +15,11 @@ pipelines:
     steps:
       - name: prepareCode
         type: Bash
-        configuration:
-          execution:
-            onExecute:
-              - echo "Preparing the code base"
-              - pushd "${res_sample_code_resourcePath}/app"
-              - npm install
-              - popd 
-              - mkdir -p app
-              - cp -r "${res_sample_code_resourcePath}/app/." ./app/
+        execution:
+          onExecute:
+            - echo "Preparing the code base"
+            - pushd "${res_sample_code_resourcePath}/app"
+            - npm install
+            - popd 
+            - mkdir -p app
+            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
