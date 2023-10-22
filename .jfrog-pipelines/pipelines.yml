@@ -1,25 +1,11 @@
-resources:
-  - name: sample_code
-    type: GitRepo
-    configuration:
-      path: jfrog/jfrog-pipelines-matrix-example
-      branches:
-        include: ^master$
-      gitProvider: mkGithub
-
 pipelines:
-  - name: setup
-    configuration:
-      inputResources:
-        - name: sample_code
-    steps:
-      - name: prepareCode
-        type: Bash
-        execution:
-          onExecute:
-            - echo "Preparing the code base"
-            - pushd "${res_sample_code_resourcePath}/app"
-            - npm install
-            - popd 
-            - mkdir -p app
-            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
+    - name: go_app_build
+      type: Bash
+      configuration:
+        runtime:
+          type: image
+          image:
+            auto:
+              language: go
+              versions:
+                - "1.17"
