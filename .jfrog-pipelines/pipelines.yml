@@ -1,24 +1,22 @@
 resources:
-  - name: myFileSpec
-    type: FileSpec
+  - name: sample_code
+    type: GitRepo
     configuration:
-      sourceArtifactory: mkartifactory
-  - name: myBuildInfo
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: mkartifactory
-pipelines: 
-  - name: uploadArtifactPipeline
-    steps:
-      - name: uploadArtifactStep
-        type: UploadArtifact
+      path: jfrog/jfrog-pipelines-matrix-example      # Change to your own path
+      branches:
+        include: ^master$
+      gitProvider: mkGitub                       # Change to your own GitHub integration name
+pipelines:
+      - name: setup
+        type: PreMatrix
         configuration:
-          targetPath: my-repository/myDirectory/myFile.txt
-          autoPublishBuildInfo: true
-          forceXrayScan: true
-          integrations:
-            - name: mkartifactory
           inputResources:
-            - name: myFileSpec
-          outputResources:
-            - name: myBuildInfo
+            - name: sample_code
+        execution:
+          onExecute:
+            - echo "Preparing the code base"
+            - pushd "${res_sample_code_resourcePath}/app"
+            - npm install
+            - popd 
+            - mkdir -p app
+            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
