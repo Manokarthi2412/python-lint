@@ -20,11 +20,21 @@ pipelines:
           vmEnvironmentVariables:
             - "LOG_LEVEL=DEBUG"
           inputResources:
-            - name: myVM
+            - name: myBlueCluster
+            - name: myGreenCluster
             - name: myApplication
           sshUser: myUser
+          strategy: blueGreen
           scripts:
             - name: deployCommand
               context: targetCluster 
               commands:
                 - "./myApp $LOG_LEVEL"
+                        - name: cleanupCommand
+              context: currentCluster 
+              commands:
+                - "./stopApp"
+            - name: swapCluster
+              context: buildNode
+              commands:
+                - "./swapLoadBalancer $target_cluster"
