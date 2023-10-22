@@ -2,22 +2,23 @@ resources:
   - name: myApplication
     type: FileSpec
     configuration:
-      sourceArtifactory: mkartifactory
-      buildName: myBuild
-      buildNumber: 1
+      sourceArtifactory: myArtifactory
+      pattern: "example-repo-local/myApp"
   - name: myVM
     type: VmCluster
     configuration:
-      sshKey: pipe_ai_test
+      sshKey: s_VM_DEPLOY_SSHKEY
       targets:
         - 0.0.0.0
         - 1.1.1.1
-pipelines: 
+pipelines:
   - name: linuxVMDeployPipeline
     steps:
       - name: linuxVMDeploy
         type: LinuxVMDeploy
         configuration:
+          environmentVariables:
+            deploy_targets_override: "123.456.78.90,127.0.0.1"
           inputResources:
             - name: myVM
             - name: myApplication
@@ -27,5 +28,3 @@ pipelines:
               context: targetCluster 
               commands:
                 - "./myApp"
-          onFailure:
-            - "if [ '$current_command' == 'deployCommand' ]; then ./doRollback.sh fi"
