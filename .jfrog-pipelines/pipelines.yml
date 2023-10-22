@@ -11,14 +11,14 @@ resources:
       targets:
         - 0.0.0.0
         - 1.1.1.1
-pipelines:
+pipelines: 
   - name: linuxVMDeployPipeline
     steps:
       - name: linuxVMDeploy
         type: LinuxVMDeploy
         configuration:
-          environmentVariables:
-            deploy_targets_override: "123.456.78.90,127.0.0.1"
+          vmEnvironmentVariables:
+            - "LOG_LEVEL=DEBUG"
           inputResources:
             - name: myVM
             - name: myApplication
@@ -27,4 +27,4 @@ pipelines:
             - name: deployCommand
               context: targetCluster 
               commands:
-                - "./myApp"
+                - "./myApp $LOG_LEVEL"
