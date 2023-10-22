@@ -1,6 +1,6 @@
 resources:
   - name: myApplication
-    type: BuildInfo
+    type: FileSpec
     configuration:
       sourceArtifactory: mkartifactory
       buildName: myBuild
