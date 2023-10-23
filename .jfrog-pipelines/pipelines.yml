@@ -1,3 +1,10 @@
+resources:
+    - name: myBuildInfo
+      type: BuildInfo
+      configuration:
+        sourceArtifactory: mkartifactory
+        buildName: SampleApp
+        buildNumber: 1 
 pipelines:
   - name: Matrix_Single_Pipeline
     steps:     
