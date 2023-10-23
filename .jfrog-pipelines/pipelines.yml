@@ -1,5 +1,5 @@
 resources:
-    - name: myBuildInfo
+    - name: CompletedBuildInfo
       type: BuildInfo
       configuration:
         sourceArtifactory: mkartifactory
