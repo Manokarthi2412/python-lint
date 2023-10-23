@@ -1,5 +1,5 @@
 resources
- - name: helmChartResource
+  - name: helmChartResource
     type: HelmChart
     configuration: 
       sourceArtifactory: #your artifactory integration
