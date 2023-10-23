@@ -13,3 +13,6 @@ pipelines:
             options: "-e HOME=/root"
             autoPull: false
             registry: docker_registry
+        execution:  # Add the 'execution' section
+          onExecute:
+            - echo "Runtime images "
