@@ -2,6 +2,7 @@ pipelines:
       - name: test
         steps :
           - name: step1
+            type: Matrix
             stepMode: Bash
             configuration:
               inputSteps:
