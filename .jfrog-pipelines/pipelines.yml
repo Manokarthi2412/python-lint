@@ -1,5 +1,8 @@
 pipelines:
   - name: pipe1
+    steps : 
+      - name: pipe_step
+        type: Image
     configuration: 
       runtime:       
         type: image
