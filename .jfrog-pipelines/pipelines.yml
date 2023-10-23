@@ -6,7 +6,7 @@ pipelines:
             stepMode: Bash
             configuration:
               inputSteps:
-                - name: setup
+                - name: step1
             stepletMultipliers:
               environmentVariables:
                 - module: mod_1
