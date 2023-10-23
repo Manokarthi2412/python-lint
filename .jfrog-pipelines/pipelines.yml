@@ -3,16 +3,16 @@ pipelines:
     steps : 
       - name: pipe_step
         type: Bash
-    configuration: 
-      runtime:       
-        type: image
-        image:
-          custom:
-            name: docker/jfrog_win
-            tag: latest
-            options: "-e HOME=/root"
-            autoPull: false
-            registry: docker_registry
-    execution:  # Add the 'execution' section
-      onExecute:
-        - echo "Runtime images "
+        configuration: 
+          runtime:       
+            type: image
+            image:
+              custom:
+                name: docker/jfrog_win
+                tag: latest
+                options: "-e HOME=/root"
+                autoPull: false
+                registry: docker_registry
+        execution:  # Add the 'execution' section
+          onExecute:
+            - echo "Runtime images "
