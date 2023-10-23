@@ -5,18 +5,19 @@ resources:
       path: jfrog/jfrog-pipelines-matrix-example      # Change to your own path
       branches:
         include: ^master$
-      gitProvider: jfrog_github                       # Change to your own GitHub integration name
+      gitProvider: mkGithub                       # Change to your own GitHub integration name
 pipelines:
-      - name: setup
-        type: PreMatrix
+  - name: setup
+    steps:
+      - name: step_1
+        type: Bash
         configuration:
-          inputResources:
-            - name: sample_code
-        execution:
-          onExecute:
-            - echo "Preparing the code base"
-            - pushd "${res_sample_code_resourcePath}/app"
-            - npm install
-            - popd 
-            - mkdir -p app
-            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
+          execution:
+            onExecute:
+              - echo "Preparing the code base"
+              - pushd "${res_sample_code_resourcePath}/app"
+              - npm install
+              - popd 
+              - mkdir -p app
+              - cp -r "${res_sample_code_resourcePath}/app/." ./app/
+
