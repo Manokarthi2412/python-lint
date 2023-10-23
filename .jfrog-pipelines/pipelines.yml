@@ -1,32 +1,11 @@
 pipelines:
-      - name: test
-        steps :
-          - name: step1
-            type: Matrix     
-            stepMode: Bash
-            stepletMultipliers:
-              environmentVariables:
-                - module: mod_1
-                - module: mod_2
-                - module: mod_3
-                - module: mod_4
-              runtimes:
-                - type: image
-                  image:
-                    auto:
-                      language: node
-                      versions:
-                        - 12
-                - type: image
-                  image:
-                    auto:
-                      language: node
-                      versions:
-                        - 8.17.0                    
-            execution:
-              onExecute:
-                - pushd ./setup/app
-                - MODULE="$module" npm run test
-                - popd
-              onComplete:
-                - save_tests ./setup/app/reports
+    - name: node_app_build
+      type: Bash
+      configuration:
+        runtime:
+          type: image
+          image:
+            auto:
+              language: node
+              versions:
+                - "14.19.1"
