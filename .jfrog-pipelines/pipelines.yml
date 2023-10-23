@@ -1,45 +1,40 @@
 resources:
-  - name: helmChartResource
-    type: HelmChart
-    configuration: 
-      sourceArtifactory: mkartifactory
-      repository: helm-local/
-      chart: test
-      version: 1.0.0
+  - name: myApplication
+    type: FileSpec
+    configuration:
+      sourceArtifactory: myArtifactory
+      pattern: "example-repo-local/myApp"
+  - name: myVM
+    type: VmCluster
+    configuration:
+      sshKey: pipe_ai_test
+      targets:
+        - 0.0.0.0
+        - 1.1.1.1
 pipelines: 
-  - name: helmBlueGreenDeployPipeline
+  - name: linuxVMDeployPipeline
     steps:
-      - name: helmDeployStep
-        type: HelmBlueGreenDeploy
-        configuration: 
-          helmVersion: 3
-          namespace: app-namespace
-          blueReleaseName: app-blue
-          greenReleaseName: app-green
-          roleServices:
-            - blueReferenceName: app-blue-service
-              greenReferenceName: app-green-service 
-              idleName: app-idle-service
-              liveName: app-service
-          integrations:
-            - name: pipe_ai_kuberentes
+      - name: linuxVMDeploy
+        type: LinuxVMDeploy
+        configuration:
+          vmEnvironmentVariables:
+            - "LOG_LEVEL=DEBUG"
           inputResources:
-            - name: helmChartResource
-     
-      - name: helmRoleSwitch
-        type: HelmBlueGreenRoleSwitch
-        configuration: 
-          deployStep: helmDeployStep
-          integrations:
-            - name: pipe_ai_kuberentes
-          inputSteps:
-            - name: helmDeployStep   
-
-      - name: helmCleanup
-        type: HelmBlueGreenCleanup
-        configuration: 
-          deployStep: helmDeployStep
-          integrations:
-            - name: pipe_ai_kuberentes
-          inputSteps:
-            - name: helmRoleSwitch
+            - name: myBlueCluster
+            - name: myGreenCluster
+            - name: myApplication
+          sshUser: myUser
+          strategy: blueGreen
+          scripts:
+            - name: deployCommand
+              context: targetCluster 
+              commands:
+                - "./myApp $LOG_LEVEL"
+            - name: cleanupCommand
+              context: currentCluster 
+              commands:
+                - "./stopApp"
+            - name: swapCluster
+              context: buildNode
+              commands:
+                - "./swapLoadBalancer $target_cluster"
