@@ -1,11 +1,12 @@
 pipelines:
-  - name: pipeline_1
+  - name: myjfrog_ui_docker
     configuration:
+      nodePool: my_cypress
       runtime:
         type: image
         image:
-          auto:
-            language: node
-            version: "18" # Either "version" or "versions" can be used.
-            versions:
-              - "18"
+          custom:
+            registry: docker
+            sourceRepository: apps-docker-local
+            name: test.mycompany.io/apps-docker-local/ci/builder-node14
+            tag: 2022.8.1-BA-8212-remove-testexecutionreportpaths-property-validation
