@@ -1,14 +1,13 @@
 pipelines:
-      - name: step_A
+  - name: step_A
+    steps:  # Add the 'steps' section
+      - name: step_B
         type: Bash
-        configuration:
-          allowFailure: boolean         #optional
-          inputSteps:
-            - name: step_B
-              status:
-                - success
-            - name: step_C
-              status:
-                - failure
-                - skipped
-                - cancelled
+        status:
+          - success
+      - name: step_C
+        type: Bash
+        status:
+          - failure
+          - skipped
+          - cancelled
