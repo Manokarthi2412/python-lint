@@ -1,18 +1,16 @@
 pipelines:
-  - name: myjfrog_ui_docker
-    steps : 
-      - name : default_image 
-        type : Bash
+  - name : pipe1
+    steps
+      - name: default-dynamic-nodepool
+        type: Matrix
+        stepMode: Bash
         configuration:
-          nodePool: default-dynamic-nodepool
+          affinityGroup: group4
           runtime:
             type: image
             image:
               custom:
                 registry: docker_registry
-                sourceRepository: apps-docker-local
-                name: test.mycompany.io/apps-docker-local/ci/builder-node14
-                tag: 2022.8.1-BA-8212-remove-testexecutionreportpaths-property-validation
-        execution:  # Add the 'execution' section
-          onExecute:
-            - echo "Runtime images "
+                sourceRepository: docker-registry
+                name: test.mycompany.io/docker-registry/cypress/base
+                tag: 14.18.1
