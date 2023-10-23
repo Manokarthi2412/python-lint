@@ -10,20 +10,16 @@ pipelines:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime: host
           exclude:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime: host
           environmentVariables:
             - delay: 1
               fail: 'true'
