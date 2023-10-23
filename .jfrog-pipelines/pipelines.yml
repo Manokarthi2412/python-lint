@@ -4,7 +4,7 @@ pipelines:
       - name : default_image 
         type : Bash
         configuration:
-          nodePool: my_cypress
+          nodePool: default-dynamic-nodepool
           runtime:
             type: image
             image:
