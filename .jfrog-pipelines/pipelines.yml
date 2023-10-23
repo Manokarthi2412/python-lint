@@ -25,5 +25,6 @@ pipelines:
               imageTag: $res_app_docker_imageTag
             integrations:
               - name: myJenkins
+                type: jenkinsCreds  # Specify the type as jenkinsCreds
             outputResources:
               - name: app_test_results
