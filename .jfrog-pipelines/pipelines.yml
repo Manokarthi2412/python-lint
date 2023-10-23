@@ -11,7 +11,7 @@ pipelines:
                 name: 541601.dkr.ecr.us-east-1.amazonaws.com/jfbeta
                 tag: latest
                 autoPull: false
-                registry: AWS
+                registry: docker_registry
                 region: us-east-1
         execution:  # Add the 'execution' section
             onExecute:
