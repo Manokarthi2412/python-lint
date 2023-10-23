@@ -3,11 +3,11 @@ pipelines:
     steps:  # Add the 'steps' section
       - name: step_B
         type: Bash
-        status:
-          - success
+        execution :
+          onExecute:
+            - echo 'success'
       - name: step_C
         type: Bash
-        status:
-          - failure
-          - skipped
-          - cancelled
+        execution :
+          onExecute:
+            - echo 'success'
