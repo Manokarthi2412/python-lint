@@ -11,6 +11,13 @@ resources:
       targets:
         - 0.0.0.0
         - 1.1.1.1
+  - name: myGreenCluster
+    type: VmCluster
+    configuration:
+      sshKey: pipe_ai_test
+      targets:
+        - 0.0.0.0
+        - 1.1.1.1
 pipelines: 
   - name: linuxVMDeployPipeline
     steps:
