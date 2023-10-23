@@ -1,17 +1,15 @@
 pipelines:
-  - name: pipe2
+  - name: pipe3
     steps:
-        - name : sample_pipe
-          type : Bash
-          configuration: 
-              runtime:       
-                type: image
-                image:
-                  custom:
-                    name: ubuntu
-                    tag: latest
-                    registry: myArtifactory
-                    sourceRepository: docker-local
-          execution:  # Add the 'execution' section
-            onExecute:
-              - echo "Runtime images "
+      - name : sample_pipe
+        type : Bash
+        configuration: 
+          runtime:       
+            type: image_aws
+            image:
+              custom:
+                name: 541601.dkr.ecr.us-east-1.amazonaws.com/jfbeta
+                tag: latest
+                autoPull: false
+                registry: AWS
+                region: us-east-1
