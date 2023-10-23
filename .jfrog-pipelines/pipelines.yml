@@ -1,31 +1,22 @@
 resources:
-    - name: CompletedBuildInfo
-      type: BuildInfo
-      configuration:
-        sourceArtifactory: mkartifactory
-        buildName: SampleApp
-        buildNumber: 1 
+  - name: sample_code
+    type: GitRepo
+    configuration:
+      path: jfrog/jfrog-pipelines-matrix-example      # Change to your own path
+      branches:
+        include: ^master$
+      gitProvider: jfrog_github                       # Change to your own GitHub integration name
 pipelines:
-  - name: Matrix_Single_Pipeline
-    steps:     
-      - name: matrix_example
-        type: Matrix
-        stepMode: Bash
+      - name: setup
+        type: PreMatrix
         configuration:
           inputResources:
-            - name: CompletedBuildInfo
-        stepletMultipliers:
-          environmentVariables:             # Sets of environment variables for steplets
-            - animal:    dog                # - Set 1
-              mineral:   copper
-              vegetable: carrot
-            - animal:    goat               # - Set 2
-              mineral:   iron
-              vegetable: broccoli
-            - animal:    lizard             # - Set 3
-              mineral:   lead          
-              
+            - name: sample_code
         execution:
           onExecute:
-            - echo "Executing matrix step on ${steplet_id}"
-            - echo "Variation animal = ${animal}, mineral = ${mineral}, vegetable = ${vegetable}"
+            - echo "Preparing the code base"
+            - pushd "${res_sample_code_resourcePath}/app"
+            - npm install
+            - popd 
+            - mkdir -p app
+            - cp -r "${res_sample_code_resourcePath}/app/." ./app/
