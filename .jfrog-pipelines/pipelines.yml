@@ -1,11 +1,11 @@
 pipelines:
-    - name: node_app_build
+    - name: go_app_build
       type: Bash
       configuration:
         runtime:
           type: image
           image:
             auto:
-              language: node
+              language: go
               versions:
-                - "14.19.1"
+                - "1.17"
