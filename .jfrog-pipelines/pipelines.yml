@@ -5,7 +5,7 @@ pipelines:
         type : Bash
         configuration: 
           runtime:       
-            type: image_aws
+            type: image
             image:
               custom:
                 name: 541601.dkr.ecr.us-east-1.amazonaws.com/jfbeta
@@ -13,3 +13,6 @@ pipelines:
                 autoPull: false
                 registry: AWS
                 region: us-east-1
+          execution:  # Add the 'execution' section
+            onExecute:
+              - echo "Runtime images "
