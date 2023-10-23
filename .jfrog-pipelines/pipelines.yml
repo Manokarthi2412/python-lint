@@ -1,7 +1,7 @@
 pipelines:
   - name : pipe1
-    steps
-      - name: default-dynamic-nodepool
+    steps:
+      - name: new_cypress
         type: Matrix
         stepMode: Bash
         configuration:
