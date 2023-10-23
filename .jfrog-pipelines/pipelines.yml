@@ -1,39 +1,41 @@
 pipelines:
-  - name: S_Matrix_0052
-    steps:
-      - name: S_Matrix_0052
+      - name: matrix_example
         type: Matrix
         stepMode: Bash
+        configuration:
+          inputSteps: 
+            - name: matrix_fan_out_example
+
         stepletMultipliers:
-          fastFail: true
-          allowFailures:
-            - environmentVariables:
-                delay: 1
-                fail: 'true'
-            - environmentVariables:
-                delay: 1
-                fail: 'true'
-          exclude:
-            - environmentVariables:
-                delay: 1
-                fail: 'true'
-            - environmentVariables:
-                delay: 1
-                fail: 'true'
-          environmentVariables:
-            - delay: 1
-              fail: 'true'
-            - delay: 2
-              fail: 'false'
-            - delay: 3
-              fail: 'false'
-            - delay: 5
-              fail: 'false'
+          environmentVariables:             # Sets of environment variables for steplets
+            - animal:    dog                            # - Set 1
+              mineral:   copper
+              vegetable: carrot
+            - animal:    goat                           # - Set 2
+              mineral:   iron
+              vegetable: broccoli
+            - animal:    lizard             # - Set 3
+              mineral:   lead        
+
+          nodePools:
+                - gcp
+                - aws 
+          
+          runtimes:                         # Runtimes for steplets
+            - type: image
+              image:
+                auto:
+                  language: java
+                  versions:
+                    - 13.0
+            - type: image
+              image:
+                auto:
+                  language: node
+                  versions:
+                    - 8.17.0
         execution:
-          onStart:
-            - sleep "$delay"
           onExecute:
-            - echo "I am on the matrix step"
-            - |
-              [ "$fail" == 'false' ] 
-            - ls -l .
+            - echo "I am executing matrix steplet ${steplet_id}"
+            - echo "Envs animal= $animal , mineral = $mineral , vegetable = $vegetable"
+            - echo "Runtime image name: $step_image_name | Runtime image tag: $step_image_tag"
