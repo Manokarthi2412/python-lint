@@ -1,12 +1,15 @@
 pipelines:
   - name: myjfrog_ui_docker
-    configuration:
-      nodePool: my_cypress
-      runtime:
-        type: image
-        image:
-          custom:
-            registry: docker
-            sourceRepository: apps-docker-local
-            name: test.mycompany.io/apps-docker-local/ci/builder-node14
-            tag: 2022.8.1-BA-8212-remove-testexecutionreportpaths-property-validation
+    steps : 
+      - name : default_image 
+        type : Bash
+        configuration:
+          nodePool: my_cypress
+          runtime:
+            type: image
+            image:
+              custom:
+                registry: docker
+                sourceRepository: apps-docker-local
+                name: test.mycompany.io/apps-docker-local/ci/builder-node14
+                tag: 2022.8.1-BA-8212-remove-testexecutionreportpaths-property-validation
