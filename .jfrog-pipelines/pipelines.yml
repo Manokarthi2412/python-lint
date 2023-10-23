@@ -2,7 +2,7 @@ pipelines:
   - name: pipe1
     steps : 
       - name: pipe_step
-        type: Image
+        type: Bash
     configuration: 
       runtime:       
         type: image
