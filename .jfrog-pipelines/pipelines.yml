@@ -4,7 +4,7 @@ resources:
     configuration:
       sourceArtifactory: myArtifactory
       pattern: "example-repo-local/myApp"
-  - name: myVM
+  - name: myBlueCluster
     type: VmCluster
     configuration:
       sshKey: pipe_ai_test
