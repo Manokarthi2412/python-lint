@@ -14,3 +14,6 @@ pipelines:
                 sourceRepository: docker-registry
                 name: test.mycompany.io/docker-registry/cypress/base
                 tag: 14.18.1
+        execution:  # Add the 'execution' section
+          onExecute:
+            - echo "Runtime images "
