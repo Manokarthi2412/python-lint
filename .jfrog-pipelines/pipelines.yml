@@ -26,20 +26,20 @@ pipelines:
           inputResources:
             - name: helmChartResource
      
-     - name: helmRoleSwitch
-       type: HelmBlueGreenRoleSwitch
-       configuration: 
-         deployStep: helmDeployStep
-         integrations:
-           - name: pipe_ai_kuberentes
-         inputSteps:
-           - name: helmDeployStep   
+      - name: helmRoleSwitch
+        type: HelmBlueGreenRoleSwitch
+        configuration: 
+          deployStep: helmDeployStep
+          integrations:
+            - name: pipe_ai_kuberentes
+          inputSteps:
+            - name: helmDeployStep   
 
-     - name: helmCleanup
-       type: HelmBlueGreenCleanup
-       configuration: 
-         deployStep: helmDeployStep
-         integrations:
-           - name: pipe_ai_kuberentes
-         inputSteps:
-           - name: helmRoleSwitch
+      - name: helmCleanup
+        type: HelmBlueGreenCleanup
+        configuration: 
+          deployStep: helmDeployStep
+          integrations:
+            - name: pipe_ai_kuberentes
+          inputSteps:
+            - name: helmRoleSwitch
