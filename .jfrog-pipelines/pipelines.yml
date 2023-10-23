@@ -1,18 +1,17 @@
 pipelines:
-  - name: pipe1
-    steps : 
-      - name: pipe_step
-        type: Bash
-        configuration: 
-          runtime:       
-            type: image
-            image:
-              custom:
-                name: docker/jfrog_win
-                tag: latest
-                options: "-e HOME=/root"
-                autoPull: false
-                registry: docker_registry
-        execution:  # Add the 'execution' section
-          onExecute:
-            - echo "Runtime images "
+  - name: pipe2
+    steps:
+        - name : sample_pipe
+          type : Bash
+          configuration: 
+              runtime:       
+                type: image
+                image:
+                  custom:
+                    name: ubuntu
+                    tag: latest
+                    registry: myArtifactory
+                    sourceRepository: docker-local
+          execution:  # Add the 'execution' section
+            onExecute:
+              - echo "Runtime images "
