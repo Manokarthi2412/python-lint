@@ -10,28 +10,20 @@ pipelines:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime: 
-                nodePool: windows
-                type: host
+              runtime: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime:
-                nodePool: ubuntu
-                type: host
+              runtime: host
           exclude:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime:
-                nodePool: windows
-                type: host
+              runtime: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              runtime:
-                nodePool: ubuntu
-                type: host
+              runtime: host
           environmentVariables:
             - delay: 1
               fail: 'true'
@@ -45,7 +37,7 @@ pipelines:
           onStart:
             - sleep "$delay"
           onExecute:
-            - echo "I am on matrix step"
+            - echo "I am on the matrix step"
             - |
-              [ "$fail" == 'false' ]
+              [ "$fail" == 'false' ] 
             - ls -l .
