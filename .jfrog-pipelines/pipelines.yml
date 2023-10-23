@@ -13,6 +13,6 @@ pipelines:
                 sourceRepository: apps-docker-local
                 name: test.mycompany.io/apps-docker-local/ci/builder-node14
                 tag: 2022.8.1-BA-8212-remove-testexecutionreportpaths-property-validation
-          execution:  # Add the 'execution' section
-            onExecute:
-              - echo "Runtime images "
+        execution:  # Add the 'execution' section
+          onExecute:
+            - echo "Runtime images "
