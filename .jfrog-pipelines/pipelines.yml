@@ -1,11 +1,14 @@
 pipelines:
-    - name: go_app_build
-      type: Bash
-      configuration:
-        runtime:
-          type: image
-          image:
-            auto:
-              language: go
-              versions:
-                - "1.17"
+      - name: step_A
+        type: Bash
+        configuration:
+          allowFailure: boolean         #optional
+          inputSteps:
+            - name: step_B
+              status:
+                - success
+            - name: step_C
+              status:
+                - failure
+                - skipped
+                - cancelled
