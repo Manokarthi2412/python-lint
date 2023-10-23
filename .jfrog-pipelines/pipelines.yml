@@ -1,29 +1,11 @@
-resources:
-  - name: appRepo
-    type: GitRepo
-    configuration:
-      gitProvider: mkGithub
-      path: myrepo/myproject
-      branches:
-        include: master        # Formatted as a regex pattern
-  - name: app_test_results
-    type: PropertyBag
-    configuration:
-      passing: 0
-      failing: 0
 pipelines:
-    - name: test_app
-      steps:
-        - name: jnkns_step
-          type: Jenkins
-          configuration:
-            jenkinsJobName: basic-api
-            inputResources:
-              - name: appRepo
-            buildParameters:
-              imageName: $res_app_docker_imageName
-              imageTag: $res_app_docker_imageTag
-            integrations:
-              - name: myJenkins
-            outputResources:
-              - name: app_test_results
+  - name: pipeline_1
+    configuration:
+      runtime:
+        type: image
+        image:
+          auto:
+            language: node
+            version: "18" # Either "version" or "versions" can be used.
+            versions:
+              - "18"
