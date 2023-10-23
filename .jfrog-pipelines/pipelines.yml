@@ -5,6 +5,14 @@ resources:
     configuration:
       passing: 0
       failing: 0
+  - name: app_docker
+    type: Image
+    configuration:
+      registry: docker_registry
+      sourceRepository: docker-local        # replace with your repository name
+      imageName: docker.artprod.mycompany.com/baseimage
+      imageTag: latest
+      autoPull: true
 pipelines:
     - name: test_app
       steps :
