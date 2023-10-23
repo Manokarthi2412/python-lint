@@ -13,6 +13,6 @@ pipelines:
                 autoPull: false
                 registry: AWS
                 region: us-east-1
-          execution:  # Add the 'execution' section
+        execution:  # Add the 'execution' section
             onExecute:
               - echo "Runtime images "
