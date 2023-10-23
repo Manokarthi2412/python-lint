@@ -1,13 +1,17 @@
 pipelines:
   - name: step_A
-    steps:  # Add the 'steps' section
+    steps:
       - name: step_B
         type: Bash
-        execution :
-          onExecute:
-            - echo 'success'
+        configuration:
+          # Add your Bash commands here
+        status:
+          - success
       - name: step_C
         type: Bash
-        execution :
-          onExecute:
-            - echo 'success'
+        configuration:
+          # Add your Bash commands here
+        status:
+          - failure
+          - skipped
+          - cancelled
