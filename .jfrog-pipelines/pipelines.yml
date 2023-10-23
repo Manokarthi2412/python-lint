@@ -1,19 +1,12 @@
 pipelines:
-  - name : pipe1
-    steps:
-      - name: new_cypress
-        type: Matrix
-        stepMode: Bash
-        configuration:
-          affinityGroup: group4
-          runtime:
-            type: image
-            image:
-              custom:
-                registry: docker_registry
-                sourceRepository: docker-registry
-                name: test.mycompany.io/docker-registry/cypress/base
-                tag: 14.18.1
-        execution:  # Add the 'execution' section
-          onExecute:
-            - echo "Runtime images "
+  - name: pipe1
+    configuration: 
+      runtime:       
+        type: image
+        image:
+          custom:
+            name: docker/jfrog_win
+            tag: latest
+            options: "-e HOME=/root"
+            autoPull: false
+            registry: docker_registry
