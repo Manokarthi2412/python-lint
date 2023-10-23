@@ -1,6 +1,6 @@
 pipelines:
   - name: S_Matrix_0052
-    steps:           
+    steps:
       - name: S_Matrix_0052
         type: Matrix
         stepMode: Bash
@@ -10,24 +10,28 @@ pipelines:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              nodePool: windows
-              runtime: host
+              runtime: 
+                nodePool: windows
+                type: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              nodePool: ubuntu
-              runtime: host
+              runtime:
+                nodePool: ubuntu
+                type: host
           exclude:
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              nodePool: windows
-              runtime: host
+              runtime:
+                nodePool: windows
+                type: host
             - environmentVariables:
                 delay: 1
                 fail: 'true'
-              nodePool: ubuntu
-              runtime: host 
+              runtime:
+                nodePool: ubuntu
+                type: host
           environmentVariables:
             - delay: 1
               fail: 'true'
@@ -36,12 +40,12 @@ pipelines:
             - delay: 3
               fail: 'false'
             - delay: 5
-              fail: 'false' 
+              fail: 'false'
         execution:
           onStart:
             - sleep "$delay"
           onExecute:
             - echo "I am on matrix step"
             - |
-              [ $fail == 'false' ] 
+              [ "$fail" == 'false' ]
             - ls -l .
