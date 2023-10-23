@@ -1,17 +1,27 @@
+resources:
+  - name: appRepo
+    type: GitRepo
+    configuration:
+      gitProvider: mkGithub
+      path: myrepo/myproject
+      branches:
+        include: master        # Formatted as a regex pattern
+  - name: app_test_results
+    type: PropertyBag
+    configuration:
+      passing: 0
+      failing: 0
 pipelines:
-  - name: step_A
-    steps:
-      - name: step_B
-        type: Bash
-        configuration:
-          # Add your Bash commands here
-        status:
-          - success
-      - name: step_C
-        type: Bash
-        configuration:
-          # Add your Bash commands here
-        status:
-          - failure
-          - skipped
-          - cancelled
+    - name: test_app
+      type: Jenkins
+      configuration:
+        jenkinsJobName: basic-api
+        inputResources:
+          - name: appRepo
+        buildParameters:
+          imageName: $res_app_docker_imageName
+          imageTag: $res_app_docker_imageTag
+        integrations:
+          - name: myJenkins
+        outputResources:
+          - name: app_test_results
