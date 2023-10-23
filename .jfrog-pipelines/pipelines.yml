@@ -1,47 +1,14 @@
-resources:
-  - name: myApplication
-    type: FileSpec
-    configuration:
-      sourceArtifactory: myArtifactory
-      pattern: "example-repo-local/myApp"
-  - name: myBlueCluster
-    type: VmCluster
-    configuration:
-      sshKey: pipe_ai_test
-      targets:
-        - 0.0.0.0
-        - 1.1.1.1
-  - name: myGreenCluster
-    type: VmCluster
-    configuration:
-      sshKey: pipe_ai_test
-      targets:
-        - 0.0.0.0
-        - 1.1.1.1
-pipelines: 
-  - name: linuxVMDeployPipeline
-    steps:
-      - name: linuxVMDeploy
-        type: LinuxVMDeploy
+pipelines:
+      - name: step_A
+        type: Bash
         configuration:
-          vmEnvironmentVariables:
-            - "LOG_LEVEL=DEBUG"
-          inputResources:
-            - name: myBlueCluster
-            - name: myGreenCluster
-            - name: myApplication
-          sshUser: myUser
-          strategy: blueGreen
-          scripts:
-            - name: deployCommand
-              context: targetCluster 
-              commands:
-                - "./myApp $LOG_LEVEL"
-            - name: cleanupCommand
-              context: currentCluster 
-              commands:
-                - "./stopApp"
-            - name: swapCluster
-              context: buildNode
-              commands:
-                - "./swapLoadBalancer $target_cluster"
+          allowFailure: boolean         #optional
+          inputSteps:
+            - name: step_B
+              status:
+                - success
+            - name: step_C
+              status:
+                - failure
+                - skipped
+                - cancelled
