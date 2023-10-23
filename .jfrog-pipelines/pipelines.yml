@@ -15,8 +15,8 @@ pipelines:
            inputResources:
              - name: app_docker
            buildParameters:
-           imageName: $res_app_docker_imageName
-           imageTag: $res_app_docker_imageTag
+             imageName: $res_app_docker_imageName
+             imageTag: $res_app_docker_imageTag
            integrations:
              - name: pipe_ai_jenkins
            outputResources:
