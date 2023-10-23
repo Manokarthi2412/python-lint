@@ -20,7 +20,7 @@ pipelines:
           my_env_var: "hello" 
     steps:
       - name: Health_Check_Step
-        type: tutorials
+        type: Boolean
         configuration:
           healthCheckUrl: "https://jfrog.com"
           notifyOnSuccess: false
