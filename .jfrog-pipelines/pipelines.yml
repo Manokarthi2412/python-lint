@@ -1,18 +1,33 @@
-pipelines:
-  - name: pipe3
+resources:
+  - name: MyGitHub
+    type: GitRepo
+    configuration:
+      path: jfrogtw/jfrog-pipelines-extensions-sample    # <-- Change to your repository path
+      gitProvider: tw_github                             # <-- Change to your GitHub integration
+      
+  - name: MyTest
+    type: tutorials/test
+    configuration:
+      alpha: "JFrog"
+      number: 42
+      flag: true
+
+pipelines: 
+  - name: MyHealthCheck
+    configuration:
+      environmentVariables:
+        readOnly:
+          my_env_var: "hello" 
     steps:
-      - name : sample_pipe
-        type : Bash
-        configuration: 
-          runtime:       
-            type: image
-            image:
-              custom:
-                name: 541601.dkr.ecr.us-east-1.amazonaws.com/jfbeta
-                tag: latest
-                autoPull: false
-                registry: docker_registry
-                region: us-east-1
-        execution:  # Add the 'execution' section
-            onExecute:
-              - echo "Runtime images "
+      - name: Health_Check_Step
+        type: HealthCheck
+        configuration:
+          healthCheckUrl: "https://jfrog.com"
+          notifyOnSuccess: false
+          notifyOnFailure: false
+          stuff: 
+           - "This is a string"
+           - "This is another string"
+          inputResources:
+           - name: MyTest
+           - name: MyGitHub
