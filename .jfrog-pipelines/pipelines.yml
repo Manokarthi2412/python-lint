@@ -11,8 +11,7 @@ pipelines:
     steps:
       - name: step_1
         type: Bash
-        configuration:
-          execution:
+        execution:
             onExecute:
               - echo "Preparing the code base"
               - pushd "${res_sample_code_resourcePath}/app"
